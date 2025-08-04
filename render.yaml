@@ -1,12 +1,13 @@
+# render.yaml
 services:
   - type: web
-    name: bajaj-hackathon-api
+    name: bajaj-hackathon
     runtime: python
     python:
       version: "3.9"
     buildCommand: |
-      pip install --upgrade pip && \
-      pip install -r requirements.txt
+      pip install -r requirements.txt &&
+      python -m spacy download en_core_web_sm
     startCommand: |
       python -m api.hackrx.run
     envVars:
@@ -14,8 +15,8 @@ services:
         sync: false
       - key: HACKRX_API_KEY
         value: eee600e04aa65918a209cc00dce620a24133f7c319bc2fc5cd3e600071dfbb5e
-      - key: PORT
-        value: 10000
-      - key: HOST
-        value: 0.0.0.0
+      - key: HF_HOME
+        value: /opt/render/.cache/huggingface
     healthCheckPath: /api/v1/hackrx/health
+    plan: free
+    autoDeploy: true

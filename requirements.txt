@@ -7,3 +7,9 @@ python-dotenv
 pydantic
 gunicorn
 pydantic-settings
+langchain
+langchain-community
+PyPDF2
+python-docx
+sentence-transformers
+huggingface-hub
