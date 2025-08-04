@@ -1,6 +1,6 @@
-import os
-from pydantic_settings import BaseSettings  # Changed import
+from pydantic_settings import BaseSettings  # Correct import
 from pydantic import Field
+import os
 
 class Settings(BaseSettings):
     GEMINI_API_KEY: str = Field(default="", env="GEMINI_API_KEY")
@@ -13,6 +13,5 @@ class Settings(BaseSettings):
 
     class Config:
         env_file = ".env" if os.path.exists(".env") else None
-        extra = "ignore"
 
 config = Settings()

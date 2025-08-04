@@ -1,22 +1,21 @@
-# api/hackrx/run.py
 from fastapi import FastAPI, HTTPException, Header
 from pydantic import BaseModel
-from app.processors import DocumentProcessor, VectorDBManager
+from typing import List  # Add this import
 from app.config import config
-import json
+from app.processors import DocumentProcessor, VectorDBManager
+import google.generativeai as genai
 
 app = FastAPI()
 
 class QueryRequest(BaseModel):
     documents: str  # URL
-    questions: List[str]
+    questions: List[str]  # Now properly imported
 
 @app.post("/api/v1/hackrx/run")
 async def process_query(
     request: QueryRequest,
     authorization: str = Header(...)
-):
-    # Authentication
+): # Authentication
     if authorization != f"Bearer {config.HACKRX_API_KEY}":
         raise HTTPException(status_code=401)
     
