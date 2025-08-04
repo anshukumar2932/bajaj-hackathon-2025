@@ -1,14 +1,13 @@
 import os
+from pydantic import BaseSettings
 
-class Config:
-    EMBEDDING_MODEL = "text-embedding-3-large"
-    LLM_MODEL = "gpt-4-turbo"
-    CHUNK_SIZE = 1000
-    CHUNK_OVERLAP = 200
-    MAX_TOKENS = 4096
-    TEMPERATURE = 0.3
-    MAX_RESPONSE_TIME = 30  # seconds
-    API_KEY = os.getenv("HACKRX_API_KEY")
-    OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-    PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
-    PINECONE_ENV = os.getenv("PINECONE_ENV")
+class Settings(BaseSettings):
+    GEMINI_API_KEY: str = os.getenv("GEMINI_API_KEY", "")
+    HACKRX_API_KEY: str = os.getenv("HACKRX_API_KEY", "default-key-if-not-set")
+    PORT: int = int(os.getenv("PORT", "10000"))
+    HOST: str = os.getenv("HOST", "0.0.0.0")
+
+    class Config:
+        env_file = ".env" if os.path.exists(".env") else None
+
+config = Settings()
