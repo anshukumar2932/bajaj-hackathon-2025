@@ -39,7 +39,7 @@ async def process_query(
         context = "\n".join([d.page_content for d in docs])
         
         # Generate response with Gemini
-        response = genai.GenerativeModel('Gemini 2.5 Pro').generate_content(
+        response = genai.GenerativeModel('gemini-2.0-flash').generate_content(
             f"Document Context:\n{context}\n\nQuestion: {question}\n"
             "Answer with: 1) Direct answer 2) Conditions 3) Source excerpt"
         )
